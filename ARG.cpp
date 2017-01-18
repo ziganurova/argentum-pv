@@ -25,12 +25,6 @@ void Argentum::ReinitSite(){
 	brInCol = 0;
 //	brP = 0;
 }
-
-void Argentum::DefaultControl(){
-	int i=0;
-	i++;
-//	RecombStrategy = getattr(self, 'RecombPBWT');
-}
     
 void Argentum::FeedSite(std::vector<int>& x){
 	int i;
@@ -46,11 +40,6 @@ void Argentum::FeedSite(std::vector<int>& x){
 //	PrintReducedTree();
 	AddBranches();
 //	PrintReducedTree1();
-	if(brInCol > 1)
-		RecombStrategy();
-}
-
-void Argentum::RecombStrategy(){
 	RecombPBWT();
 }
 
@@ -331,26 +320,7 @@ void Argentum::RecombPBWT(){
 	*d_tmp = swap2;*/
 	std::swap(a, b);
 	std::swap(d, d_tmp);
-	RegisterRecomb();
 }
-
-void Argentum::RecombMinCuts(){
-	int i;
-	//TODO
-}
-
-bool Argentum::GetEventUnwind(){
-	if (eventsPointer == 0)
-		return false;
-	event = events[eventsPointer];
-	eventsPointer--;
-	return true;
-}
-
-
-
-
-
 
 void Argentum::SetTree(std::vector<double>& dFunc){
 	int i;
@@ -368,7 +338,7 @@ void Argentum::SetTree(std::vector<double>& dFunc){
 	std::clog << "New tree is set." << std::endl;
 }	
 
-int Argentum::BranchRoot(int pos, int len){//Checks if interval [pos, pos+len) is a valid branch. If yes returns it root node, otherwise -1.
+/*int Argentum::BranchRoot(int pos, int len){//Checks if interval [pos, pos+len) is a valid branch. If yes returns it root node, otherwise -1.
 	if (pos < 0 or pos+len > M)
 		return -1;
 	int h = (int)(std::min_element(d+pos+1,d+pos+len) - d);
@@ -448,3 +418,4 @@ void Argentum::ApplyRecombination(Recomb* recomb, bool correct = false){
 			d[recomb.pos+recomb.len] = d3;
 	}
 }
+*/

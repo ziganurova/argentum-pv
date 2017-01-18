@@ -1,14 +1,15 @@
 #!/usr/bin/python
 
 hapNum = 100
-hapLen = 10000*2500 #Haplotype length: 
+hapLen = 10000*5000 #Haplotype length: 
 #Effective population sizes
-N_0 = 10000.0
+N_0 = 100000.0
 
 mu = 10**(-8) #Mutation rate per site per generation
 mu1 = 10**(-8) #Recombination rate per site per generation
 
 print 'SCRM command generator for two splitted populations'
+print 'Do you need to output trees? Add -T flag before ">".'
 command = './scrm ' + `int(hapNum)` + ' 1 '
 
 theta = 4*mu*N_0*hapLen
