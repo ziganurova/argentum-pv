@@ -1,5 +1,6 @@
 #include "ARG.h"
 
+
 void UpString(char *str, char **out){ //Input string 'str', the result is an uppercase string in 'out'
 	int i = 0;
 	*out = strdup(str);
@@ -17,17 +18,60 @@ void ReadFile (char *filename){
 	std::vector<int> x;
 
 	//Open the file with scrm output
-	int N = ; //Find the number of haplotypes in the file, e.g. from the first line as it is of the form "scrm NUMBER_OF_HAPLOTYPES ........."
+	int N = 100; //Find the number of haplotypes in the file, e.g. from the first line as it is of the form "scrm NUMBER_OF_HAPLOTYPES ........."
 	std::cout << "Reading from " << filename << ". File contains " << N << " samples." << std::endl;
 	Argentum ARG (N);//construct ARG class with N haplotypes
 	for (i = 0; i < ARG.GetSize(); i++)//initialise vector of length N
 		x.push_back(0);
 	
-	while (...)){//Read data from the input file, only lines with segregating sites (those with 0 and 1 only, skip newick trees)
-		//read line into vector x
-		ARG.FeedSite(x);
-		t2 = time(NULL);
-    }
+	ifstream myfile(filename);
+
+	char buff[10];
+	char first;
+	string line;
+
+	if (myfile.is_open()) {
+	    getline(myfile,line);
+	    getline(myfile,line);
+	    getline(myfile,line);
+	    getline(myfile,line); //Skip 4 lines
+	    myfile >> buff;
+	    myfile >> buff;
+	    int segsites = atoi(buff); //read how many segsites
+	  
+	    getline(myfile,line); //skip 2 lines
+	    getline(myfile,line);
+
+	    int place = myfile.tellg(); // remember the place where haplotypes begin
+	    
+		for (int j=20; j<100; j++) { //read exactly 100000 segregating sites 
+			cout << "Read "<< j << " column" << endl;
+			myfile.seekg(place); // start with the position PLACE
+			myfile.ignore(j); 	//skip some symbols (go to the column #j)
+
+		    for (i=0; i<N; i++) { 
+		
+		    	myfile.get(first); //read symbol
+		    	x[i] = first - '0'; //convert char into int
+		    	cout << x[i];
+			myfile.ignore(segsites); // skip whole line and go to the same column in the next row
+		    }
+		    cout << "\n";
+		    ARG.FeedSite(x);
+			t2 = time(NULL);
+		}
+		std::cout << "Reading Complete" << std::endl;
+
+	    
+	}
+	else {
+		 cerr << "There was an error opening the input file!\n";
+	     exit(1);
+	}
+	myfile.close();
+
+	
+    
 }
 
 void Argentum::PrintTree(){

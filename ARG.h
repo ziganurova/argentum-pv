@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <set>
 #include <vector>
@@ -13,11 +14,7 @@
 #include <map>
 #include <algorithm>
 
-struct ARGEvent{
-	bool type, side;
-	int pos, len, nPos;
-	double newD, old;
-};
+using namespace std;
 
 struct PackSet{
 	int el[5];
@@ -54,8 +51,6 @@ struct Recomb1{
 
 class Argentum{
 	private:
-		int RecombStrat;
-		std::map <std::string, std::string> RecombStrategies;
 
 		int M;
 		
@@ -64,11 +59,6 @@ class Argentum{
 		int *a;
 		int *b;
 		int brInCol;
-		
-		//Unwind
-		int *brTrack;
-		int *recombPointer;
-		std::vector<Branch> recombList;
 		
 		//Local tree
 	    double *d;
@@ -91,30 +81,21 @@ class Argentum{
 		void ParseInterval(int , int , int );
 		void AddBranches();
 		void FormBranch(int , int );
-		void CopyBranchR(int , int , int , double , int , int );
+		void CopyBranchR(int , int=-1 , int=-1 , double=-1.0 , int=-1 , int=-1 );
 		void RecombPBWT();
 		void RegisterRecomb();
 		
-		//read and write ARG
-		std::ofstream OutARGFile;
-		std::ifstream InARGFile;
-		entryARG entry;
-		
-		ARGEvent event;
-		std::vector<ARGEvent> events;
-		eventPointer;
 
 	public:
 		Argentum(int size){
 			int i;
 			M = size;
-			RecombStrat = 0;
 			if (M > 0){
 				y = new int [M];
 				a = new int [M];
 				b = new int [M];
-				brTrack = new int [M];
-				recombPointer = new int [M];
+				// brTrack = new int [M];
+				// recombPointer = new int [M];
 				d = new double [M];
 				d_tmp = new double [M];
 				rd = new double [M];
@@ -139,33 +120,7 @@ class Argentum{
 		void DefaultControl();
 		void RecombStrategy();
 		int GetSize();
+
 };
 
-void Argetum::Reinit(size){
-	this->Argentum(size);
-}
-
-class ControlPanel{
-	public:
-		std::map<std::string, std::string> commands;
-		int lineLimit;
-		int lineReport;
-//		std::map<std::string, std::string> recombStrategies;
-	    ControlPanel(){
-	        commands["readVCF"] = "-r";
-			commands["write"] = "-w";
-			commands["test"] = "-test";
-			commands["recombStr"] = "-rs";
-			commands["lineLimit"] = "-ll";
-			commands["lineReport"] = "-lr";
-			LineLimit = -1;
-			LineReport = 10000;
-//	        recombStrategies['1'] = 'RecombTrOr';
-//			recombStrategies['2'] = 'RecombPBWT';
-		}
-//		void ControlPanel::RecombStrategy(Argentum* , std::string , bool );
-};
-
-
-void UpString(char*, char** );
-void ReadVcf (char* );
+void ReadFile(char *filename);

@@ -1,3 +1,4 @@
+#include "ARG.h"
 /*    #Recombination list
     self.recombList = []
     self.localRecomb = []
@@ -167,7 +168,7 @@ void Argentum::AddBranches(){
 }
 					
 
-void Argentum::CopyBranchR(int id, int L = -1, int R = -1, double newD = -1.0, int allele = -1, int h = -1){
+void Argentum::CopyBranchR(int id, int L , int R , double newD , int allele, int h ){
 	int i;
 	int H;
     if (L == -1)

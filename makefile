@@ -1,1 +1,1 @@
-g++ -o argentum argentum.cpp ARG.cpp argIO.cpp -lhts -lz
+g++ -o argentum argentum.cpp ARG.cpp argIO.cpp -lz
