@@ -30,48 +30,23 @@ void ReadFile (char *filename){
 	char first;
 	string line;
 
-	if (myfile.is_open()) {
-	    getline(myfile,line);
-	    getline(myfile,line);
-	    getline(myfile,line);
-	    getline(myfile,line); //Skip 4 lines
-	    myfile >> buff;
-	    myfile >> buff;
-	    int segsites = atoi(buff); //read how many segsites
-	  
-	    getline(myfile,line); //skip 2 lines
-	    getline(myfile,line);
-
-	    int place = myfile.tellg(); // remember the place where haplotypes begin
-	    
-		for (int j=20; j<100; j++) { //read exactly 100000 segregating sites 
-			cout << "Read "<< j << " column" << endl;
-			myfile.seekg(place); // start with the position PLACE
-			myfile.ignore(j); 	//skip some symbols (go to the column #j)
-
-		    for (i=0; i<N; i++) { 
-		
-		    	myfile.get(first); //read symbol
-		    	x[i] = first - '0'; //convert char into int
-		    	cout << x[i];
-			myfile.ignore(segsites); // skip whole line and go to the same column in the next row
-		    }
-		    cout << "\n";
-		    ARG.FeedSite(x);
-			t2 = time(NULL);
-		}
-		std::cout << "Reading Complete" << std::endl;
-
-	    
+	if ( !myfile.is_open()) {
+		cerr << "There was an error opening the input file " << filename << "." << endl;
+		exit(1);
 	}
-	else {
-		 cerr << "There was an error opening the input file!\n";
-	     exit(1);
-	}
-	myfile.close();
 
+for (int i=0; i<100000; i++){
+	for (int j=0; j<N; j++) {
+		myfile.get(first); //read symbol
+		x[j] = first - '0'; //convert char into int
+		myfile.ignore(1);
+	}
+	ARG.FeedSite(x);
+}
+	t2 = time(NULL);
+	cout << "Reading Complete. Time " << t2-t1 << std::endl;
 	
-    
+	myfile.close();
 }
 
 void Argentum::PrintTree(){

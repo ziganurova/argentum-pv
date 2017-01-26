@@ -32,8 +32,10 @@ void Help(){
 }
 
 int main(int argc, char *argv[]){
-	std::cout << "Read VCF." << std::endl;
-	char fn[] = "../aa_1k/chr20_aa_complete.vcf.gz";//INPUT FILE: edit here or add command line argument
-	ReadFile(fn);
+	if (argc < 2){
+		cout << "Missing input file." << endl;
+		return 0;
+	}
+	ReadFile(argv[1]);
 	return 1;
 }

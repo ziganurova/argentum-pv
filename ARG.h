@@ -82,7 +82,7 @@ class Argentum{
 		void AddBranches();
 		void FormBranch(int , int );
 		void CopyBranchR(int , int=-1 , int=-1 , double=-1.0 , int=-1 , int=-1 );
-		void RecombPBWT();
+		void RecombPBWT(bool = false);
 		void RegisterRecomb();
 		
 
@@ -112,7 +112,7 @@ class Argentum{
 			}
 			std::cout << "New ARGentum session initialised with " << M << " haplotypes." << std::endl;
 		}
-		void FeedSite(std::vector<int>&);
+		void FeedSite(std::vector<int>&, bool = false);
 		void SetTree(std::vector<double>&);
 		void PrintTree();
 		void PrintReducedTree();

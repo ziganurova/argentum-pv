@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-hapNum = 100
-hapLen = 10000*5000 #Haplotype length: 
+hapNum = 10
+hapLen = 10*5000 #Haplotype length: 
 #Effective population sizes
 N_0 = 100000.0
 
