@@ -54,6 +54,9 @@ class Argentum{
 
 		int M;
 		
+		//Current site (to be set through SetSiteNumber() if necessary - by default not set)
+		int siteNumber;
+		
 		//PBWT variables
 		int *y;
 		int *a;
@@ -87,6 +90,7 @@ class Argentum{
 		
 
 	public:
+		//int siteNumber;
 		Argentum(int size){
 			int i;
 			M = size;
@@ -115,10 +119,12 @@ class Argentum{
 		void FeedSite(std::vector<int>&, bool = false);
 		void SetTree(std::vector<double>&);
 		void PrintTree();
+		void PrintTreeForTest(std::vector<int>&);
 		void PrintReducedTree();
 		void PrintReducedTree1();
 		void DefaultControl();
 		void RecombStrategy();
+		void SetSiteNumber(int);
 		int GetSize();
 
 };
