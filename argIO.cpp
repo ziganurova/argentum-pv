@@ -11,70 +11,44 @@ void UpString(char *str, char **out){ //Input string 'str', the result is an upp
 }
 
 void ReadFile (char *filename){
-	int i;
 	char c;
+	int i;
 	time_t t1, t2;
 	t1 = time(NULL);
 	std::vector<int> x;
 
 	//Open the file with scrm output
-	int N = 1000; //Find the number of haplotypes in the file, e.g. from the first line as it is of the form "scrm NUMBER_OF_HAPLOTYPES ........."
+	int N = 100; //Find the number of haplotypes in the file, e.g. from the first line as it is of the form "scrm NUMBER_OF_HAPLOTYPES ........."
 	std::cout << "Reading from " << filename << ". File contains " << N << " samples." << std::endl;
-	Argentum ARG (N);//construct ARG class with N haplotypes
+	Argentum ARG(N);//construct ARG class with N haplotypes
 	for (i = 0; i < ARG.GetSize(); i++)//initialise vector of length N
 		x.push_back(0);
 	
 	ifstream myfile(filename);
 
-	char buff[10];
 	char first;
-	string line;
 
 	if ( !myfile.is_open()) {
 		cerr << "There was an error opening the input file " << filename << "." << endl;
 		exit(1);
 	}
-/*    getline(myfile,line);
-    getline(myfile,line);
-    getline(myfile,line);
-    getline(myfile,line); //Skip 4 lines
-    myfile >> buff;
-    myfile >> buff;
-    int segsites = atoi(buff); //read how many segsites
-  
-    getline(myfile,line); //skip 2 lines
-    getline(myfile,line);
 
-    int place = myfile.tellg(); // remember the place where haplotypes begin
-    
-	for (int j=0; j<100000; j++) { //read exactly 100000 segregating sites 
-		myfile.seekg(place); // start with the position PLACE
-		myfile.ignore(j); 	//skip some symbols (go to the column #j)
-	if (j % 1000 == 0) cout << j << endl;
-	    for (i=0; i<N; i++) { 
-	
-	    	myfile.get(first); //read symbol
-	    	x[i] = first - '0'; //convert char into int
-	    	myfile.ignore(segsites); // skip whole line and go to the same column in the next row
-	    }
-	   // ARG.FeedSite(x);
-		t2 = time(NULL);
-	} */
-for (int i=0; i<100000; i++){
-	for (int j=0; j<N; j++) {
-		myfile.get(first); //read symbol
-		x[j] = first - '0'; //convert char into int
+	for (i=0; i<100000; i++){
+		for (int j=0; j<N; j++) {
+			myfile.get(first); //read symbol
+			x[j] = first - '0'; //convert char into int			
+			
+		}
 		myfile.ignore(1);
+		
+		
+		ARG.SetSiteNumber(i);
+		if (i == -1) {
+			ARG.PrintTreeForTest(x);
+		} 
+		ARG.FeedSite(x);
 	}
-	ARG.SetSiteNumber(i);
-	if (i == 2) {
-		ARG.PrintTreeForTest(x);
-	} 
-	ARG.FeedSite(x);
-}
-	t2 = time(NULL);
-	cout << "Reading Complete. Time " << t2-t1 << std::endl;
-	
+	cout << "Reading Complete. " << std::endl;
 	myfile.close();
 }
 
