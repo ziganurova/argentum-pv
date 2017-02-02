@@ -88,9 +88,9 @@ class Argentum{
 		void RecombPBWT(bool = false);
 		void RegisterRecomb();
 		
+		
 
 	public:
-		//int siteNumber;
 		Argentum(int size){
 			int i;
 			M = size;
@@ -119,7 +119,7 @@ class Argentum{
 		void FeedSite(std::vector<int>&, bool = false);
 		void SetTree(std::vector<double>&);
 		void PrintTree();
-		void PrintTreeForTest(std::vector<int>&);
+		void PrintTreeForTest(std::vector<int>&)
 		void PrintReducedTree();
 		void PrintReducedTree1();
 		void DefaultControl();
